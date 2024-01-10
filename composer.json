@@ -1,11 +1,14 @@
 {
   "name": "thedavidinyang/simplemail",
   "type": "library",
-  "description": "A simple smtp email sending interface.",
+  "description": "A simple smtp email sending interface for php.",
+  "homepage": "https://github.com/thedavidinyang/simplemail",
+  "license": "MIT",
   "authors": [
     {
       "name": "David Inyang",
-      "email": "davidinyang01@gmail.com"
+      "email": "davidinyang01@gmail.com",
+      "role": "Developer"
     }
   ],
   "keywords": [
@@ -17,7 +20,6 @@
     "snowflake",
     "php snowflake"
   ],
-  "license": "MIT",
   "autoload": {
     "psr-4": {
       "thedavidinyang\\SimpleMail\\": "src/"
