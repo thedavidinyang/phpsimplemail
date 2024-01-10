@@ -131,7 +131,6 @@ class Mailer
         // //Recipients
         // $this->mail->addAddress('joe@example.net', 'Joe User'); //Add a recipient
         // $this->mail->addAddress('ellen@example.com'); //Name is optional
-        // $this->mail->addReplyTo('info@example.com', 'Information');
         // $this->mail->addCC('cc@example.com');
         // $this->mail->addBCC('bcc@example.com');
 
@@ -141,6 +140,26 @@ class Mailer
         // ];
 
         $this->mail->addAddress($v['email'], $v['name']);
+
+        return $this;
+
+    }
+    /// set recipient
+    public function reply_to(array $v)
+    {
+
+        // //Recipients
+        // $this->mail->addAddress('joe@example.net', 'Joe User'); //Add a recipient
+        // $this->mail->addAddress('ellen@example.com'); //Name is optional
+        // $this->mail->addCC('cc@example.com');
+        // $this->mail->addBCC('bcc@example.com');
+
+        // $v = [
+        //     'email' => 'davidinyang01@gmail.com',
+        //     'name'  => 'David Inyang'
+        // ];
+
+        $this->mail->addReplyTo($v['email'], $v['name']);
 
         return $this;
 
