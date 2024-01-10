@@ -1,5 +1,5 @@
 {
-  "name": "thedavidinyang/simplemail",
+  "name": "thedavidinyang/phpsimplemail",
   "type": "library",
   "description": "A simple smtp email sending interface for php.",
   "homepage": "https://github.com/thedavidinyang/simplemail",
@@ -11,15 +11,7 @@
       "role": "Developer"
     }
   ],
-  "keywords": [
-    "q",
-    "php orm",
-    "migrations",
-    "automigration",
-    "peculiar",
-    "snowflake",
-    "php snowflake"
-  ],
+  "keywords": [ "php", "php email", "simple email", "smtp", "php smtp", "mail", "php email", "phpsimplemail", "simple email", "simple mail", "phpmailer" ],
   "autoload": {
     "psr-4": {
       "thedavidinyang\\SimpleMail\\": "src/"
