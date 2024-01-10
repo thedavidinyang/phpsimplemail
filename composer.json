@@ -1,7 +1,7 @@
 {
   "name": "thedavidinyang/phpsimplemail",
   "type": "library",
-  "description": "A simple smtp email sending interface for php.",
+  "description": "A full-featured simple php fluent interface for sending html or plaintext emails via smtp",
   "homepage": "https://github.com/thedavidinyang/simplemail",
   "license": "MIT",
   "authors": [
