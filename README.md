@@ -1,8 +1,6 @@
-# SimpleMail – A full-featured simple email creation and transfer interface for PHP
+# SimpleMail – A full-featured simple php fluent interface for sending html or plaintext emails via smtp
 
 
 
 ## Features
-- Well this is still a work in progress but it promisies to simplify sending html emails in PHP via smtp
-
-
+- propper documentation coming soon
