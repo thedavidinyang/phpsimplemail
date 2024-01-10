@@ -1,0 +1,35 @@
+{
+  "name": "thedavidinyang/simplemail",
+  "type": "library",
+  "description": "A simple smtp email sending interface.",
+  "authors": [
+    {
+      "name": "David Inyang",
+      "email": "davidinyang01@gmail.com"
+    }
+  ],
+  "keywords": [
+    "q",
+    "php orm",
+    "migrations",
+    "automigration",
+    "peculiar",
+    "snowflake",
+    "php snowflake"
+  ],
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "thedavidinyang\\SimpleMail\\": "src/"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "php": ">=5.5.0",
+    "ext-ctype": "*",
+    "ext-filter": "*",
+    "ext-hash": "*",
+    "phpmailer/phpmailer": "^6.9"
+  }
+}
