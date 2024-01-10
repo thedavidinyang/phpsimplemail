@@ -185,7 +185,7 @@ class Mailer
 
     /// send email
 
-    public function sendmail(bool $responce = false)
+    public function sendmail(bool $response = false)
     {
 
 
@@ -193,12 +193,12 @@ class Mailer
 
             $this->mail->send();
 
-            if ($responce){
+            if ($response){
                 return ('Message has been sent');
             }
         } catch (Exception $e) {
 
-            if ($responce){
+            if ($response){
                 return ("Message could not be sent. Mailer Error: {$this->mail->ErrorInfo}");
             }
         }
