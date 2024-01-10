@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * SimpleMail PHP SMTP email sending interface.
+ * PHP Version >= 5.6
+ * @see https://github.com/thedavidinyang/simplemail/ The SimpleMail GitHub project
+ * @author    David Inyang (@thedavidinyang) <davidinyang01@gmail.com>
+ */
+
 namespace SimpleMail;
 
 use PHPMailer\PHPMailer\Exception;
@@ -65,14 +72,38 @@ class Mailer
         $this->mail->isSMTP(); //Send using SMTP
         $this->mail->Host = $this->settings['host']; //Set the SMTP server to send through
         $this->mail->SMTPAuth = true; //Enable SMTP authentication
-        $this->mail->Username = $this->settings['username']; //SMTP username
-        $this->mail->Password = $this->settings['password']; //SMTP password
+        $this->mail->Username = $this->settings['username']; 
+        $this->mail->Password = $this->settings['password']; 
         $this->mail->SMTPSecure = $this->settings['authentication'];
         // $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; //Enable implicit TLS encryption
         $this->mail->Port = $this->settings['port']; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-        $this->mail->isHTML(true); //Set email format to HTML
 
       
+
+        return $this;
+
+    }
+
+
+    /* 
+    set mail format to 
+    
+    true = html
+    false = plain
+
+    */
+    
+    public function format(bool $v){
+
+        if($v){
+
+            $this->mail->isHTML(true); //Set email format to HTML
+
+        } else {
+            $this->mail->isHTML(true); //Set email format to HTML
+
+
+        }
 
         return $this;
 
@@ -129,7 +160,6 @@ class Mailer
     {
 
         // //Recipients
-        // $this->mail->addAddress('ellen@example.com'); //Name is optional
 
         // $v = [
         //     'email' => 'davidinyang01@gmail.com',
@@ -141,13 +171,33 @@ class Mailer
         return $this;
 
     }
+
+
+    /// set many recipient
+    public function to_many(array|object $v)
+    {
+
+      
+
+        // $v = [
+        //     'email' => 'davidinyang01@gmail.com',
+        //     'email'  => 'davidinyang01@gmail.com'
+        // ];
+
+        foreach ($v as $e){
+
+            $this->mail->addAddress($v['email']);
+
+        }
+
+        return $this;
+
+    }
+
+
     /// set recipient
     public function reply_to(array $v)
     {
-
-        // //Recipients
-        // $this->mail->addAddress('joe@example.net', 'Joe User'); //Add a recipient
-        // $this->mail->addAddress('ellen@example.com'); //Name is optional
 
         // $v = [
         //     'email' => 'davidinyang01@gmail.com',
