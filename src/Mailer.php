@@ -52,6 +52,8 @@ class Mailer
         return $setup;
     }
 
+    // intialize the mail setup
+
     public function init($setup)
     {
 
@@ -95,7 +97,9 @@ class Mailer
 
     }
 
-    public function addAttachment($file)
+    /// add attatchment
+
+    public function addAttachment(string $file)
     {
         $this->mail->addAttachment($file);
 
@@ -103,6 +107,8 @@ class Mailer
 
     }
 
+
+    /// set sender
     public function from(array $v)
     {
 
@@ -116,6 +122,9 @@ class Mailer
         return $this;
     }
 
+
+
+    /// set recipient
     public function to(array $v)
     {
 
@@ -137,7 +146,9 @@ class Mailer
 
     }
 
-    public function subject($v)
+
+    // set subject
+    public function subject(string $v)
     {
 
         $this->mail->Subject = $v;
@@ -146,28 +157,50 @@ class Mailer
 
     }
 
-    public function body($v)
+
+// set   mail content
+    public function body(string $v)
     {
 
         //Content
         $this->mail->Body = $v;
-//  $this->mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
 
         return $this;
 
     }
 
-    public function sendmail()
+
+    //set alternate content This is the body in plain text for non-HTML mail clients
+
+    public function alt_body(string $v){
+
+         //Content
+         $this->mail->AltBody = $v;
+
+        return $this;
+
+    }
+
+
+    /// send email
+
+    public function sendmail(bool $responce = false)
     {
 
-        // dd($this);
 
         try {
 
             $this->mail->send();
-            // echo 'Message has been sent';
+
+            if ($responce){
+                return ('Message has been sent');
+            }
         } catch (Exception $e) {
-            // echo "Message could not be sent. Mailer Error: {$this->mail->ErrorInfo}";
+
+            if ($responce){
+                return ("Message could not be sent. Mailer Error: {$this->mail->ErrorInfo}");
+            }
         }
     }
 }
