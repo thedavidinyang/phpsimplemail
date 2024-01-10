@@ -146,6 +146,25 @@ class Mailer
 
     }
 
+    // add cc
+
+    public function cc(array|object $v){
+
+          // $v = [
+        //     'email' => 'davidinyang01@gmail.com',
+        //     'email'  => 'davidinyang01@gmail.com'
+        // ];
+
+        foreach ($v as $e){
+
+            $this->mail->addCC($v['email']);
+
+        }
+
+        return $this;
+
+    }
+
 
     // set subject
     public function subject(string $v)
