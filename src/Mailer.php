@@ -23,16 +23,33 @@ class Mailer
 
     private function smtp_setup(array $v) :array
     {
-        $resultDict = [];
+        $setup = [];
+
+        /*
+
+        Setup parameters
+
+        $setup ['host', 'username', 'password', 'authentication', 'port'  ]
+
+        host = smtp host url
+        username = smtp username
+        password = smtp password
+        authentication = SSL or TLS
+        port = smtp port
+
+
+
+
+        */
 
         foreach ($v as $row) {
             $option = $row['option'];
             $value = $row['value'];
 
-            $resultDict[$option] = $value;
+            $setup[$option] = $value;
         }
 
-        return $resultDict;
+        return $setup;
     }
 
     public function init($setup)
@@ -43,22 +60,38 @@ class Mailer
         $this->settings = $this->smtp_setup($setup);
 
 
-        // $this->mail->SMTPDebug = SMTP::DEBUG_SERVER; //Enable verbose debug output
-        $this->mail->SMTPDebug = SMTP::DEBUG_OFF ;  //Enable verbose debug output
         $this->mail->isSMTP(); //Send using SMTP
-        $this->mail->Host = $this->settings['mail_smtp_host']; //Set the SMTP server to send through
+        $this->mail->Host = $this->settings['host']; //Set the SMTP server to send through
         $this->mail->SMTPAuth = true; //Enable SMTP authentication
-        $this->mail->Username = $this->settings['mail_smtp_username']; //SMTP username
-        $this->mail->Password = $this->settings['mail_smpt_password']; //SMTP password
-        $this->mail->SMTPSecure = $this->settings['mail_smtp_auth'];
+        $this->mail->Username = $this->settings['username']; //SMTP username
+        $this->mail->Password = $this->settings['password']; //SMTP password
+        $this->mail->SMTPSecure = $this->settings['authentication'];
         // $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; //Enable implicit TLS encryption
-        $this->mail->Port = $this->settings['mail_smtp_port']; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+        $this->mail->Port = $this->settings['port']; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
         $this->mail->isHTML(true); //Set email format to HTML
-        $this->mail->setFrom($this->settings['mail_from_email'], $this->settings['mail_from_name']);
 
       
 
         return $this;
+
+    }
+
+    // enable or diable debuging 
+
+    public function debug(bool $v){
+
+        if($v){
+            //Enable verbose debug output
+        $this->mail->SMTPDebug = SMTP::DEBUG_SERVER; 
+
+        } else{
+            //Disable verbose debug output
+            $this->mail->SMTPDebug = SMTP::DEBUG_OFF ;  //Enable verbose debug output
+
+        }
+
+        return $this;
+
 
     }
 
