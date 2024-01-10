@@ -129,10 +129,7 @@ class Mailer
     {
 
         // //Recipients
-        // $this->mail->addAddress('joe@example.net', 'Joe User'); //Add a recipient
         // $this->mail->addAddress('ellen@example.com'); //Name is optional
-        // $this->mail->addCC('cc@example.com');
-        // $this->mail->addBCC('bcc@example.com');
 
         // $v = [
         //     'email' => 'davidinyang01@gmail.com',
@@ -151,8 +148,6 @@ class Mailer
         // //Recipients
         // $this->mail->addAddress('joe@example.net', 'Joe User'); //Add a recipient
         // $this->mail->addAddress('ellen@example.com'); //Name is optional
-        // $this->mail->addCC('cc@example.com');
-        // $this->mail->addBCC('bcc@example.com');
 
         // $v = [
         //     'email' => 'davidinyang01@gmail.com',
@@ -164,6 +159,26 @@ class Mailer
         return $this;
 
     }
+
+    // add bcc
+
+    public function bcc(array|object $v){
+
+          // $v = [
+        //     'email' => 'davidinyang01@gmail.com',
+        //     'email'  => 'davidinyang01@gmail.com'
+        // ];
+
+        foreach ($v as $e){
+
+            $this->mail->addBCC($v['email']);
+
+        }
+
+        return $this;
+
+    }
+
 
     // add cc
 
