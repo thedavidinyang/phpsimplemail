@@ -11,20 +11,17 @@ class Mailer
     public $mail;
     private $settings;
 
+    const VERSION = '1.0';
+
+
     public function __construct()
     {
 
         $this->mail = new PHPMailer(true);
 
-        $this->settings = Settings::select('option', 'value')->where('option', 'like', 'mail_%')->get();
-
-        $this->settings = $this->reoganise_settings($this->settings);
-
-        // dd($this->settings);
-
     }
 
-    private function reoganise_settings($v)
+    private function smtp_setup(array $v) :array
     {
         $resultDict = [];
 
@@ -38,10 +35,14 @@ class Mailer
         return $resultDict;
     }
 
-    public function init()
+    public function init($setup)
     {
 
+
         //Server settings
+        $this->settings = $this->smtp_setup($setup);
+
+
         // $this->mail->SMTPDebug = SMTP::DEBUG_SERVER; //Enable verbose debug output
         $this->mail->SMTPDebug = SMTP::DEBUG_OFF ;  //Enable verbose debug output
         $this->mail->isSMTP(); //Send using SMTP
