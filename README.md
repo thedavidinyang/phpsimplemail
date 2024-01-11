@@ -3,4 +3,4 @@
 
 
 ## Features
-- propper documentation coming soon
+- propper documentation coming very soon
