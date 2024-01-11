@@ -66,7 +66,6 @@ class Mailer
 
 
         //Server settings
-        $this->settings = $this->smtp_setup($setup);
 
 
         $this->mail->isSMTP(); //Send using SMTP
