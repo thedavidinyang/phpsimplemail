@@ -7,7 +7,7 @@
  * @author    David Inyang (@thedavidinyang) <davidinyang01@gmail.com>
  */
 
-namespace SimpleMail;
+namespace thedavidinyang\SimpleMail;
 
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
