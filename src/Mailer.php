@@ -30,7 +30,8 @@ class Mailer
 
     private function smtp_setup(array $v) :array
     {
-        $setup = [];
+        // $setup = [];
+        $setup = $v;
 
         /*
 
@@ -49,12 +50,12 @@ class Mailer
 
         */
 
-        foreach ($v as $row) {
-            $option = $row['option'];
-            $value = $row['value'];
+        // foreach ($v as $row) {
+        //     $option = $row['option'];
+        //     $value = $row['value'];
 
-            $setup[$option] = $value;
-        }
+        //     $setup[$option] = $value;
+        // }
 
         return $setup;
     }
@@ -174,7 +175,7 @@ class Mailer
 
 
     /// set many recipient
-    public function to_many(array|object $v)
+    public function to_many(array $v)
     {
 
       
@@ -212,7 +213,7 @@ class Mailer
 
     // add bcc
 
-    public function bcc(array|object $v){
+    public function bcc(array $v){
 
           // $v = [
         //     'email' => 'davidinyang01@gmail.com',
@@ -232,7 +233,7 @@ class Mailer
 
     // add cc
 
-    public function cc(array|object $v){
+    public function cc(array $v){
 
           // $v = [
         //     'email' => 'davidinyang01@gmail.com',
