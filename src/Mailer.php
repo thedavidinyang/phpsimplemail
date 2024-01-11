@@ -30,7 +30,8 @@ class Mailer
 
     private function smtp_setup(array $v) :array
     {
-        $setup = [];
+        // $setup = [];
+        $setup = $v;
 
         /*
 
@@ -49,12 +50,12 @@ class Mailer
 
         */
 
-        foreach ($v as $row) {
-            $option = $row['option'];
-            $value = $row['value'];
+        // foreach ($v as $row) {
+        //     $option = $row['option'];
+        //     $value = $row['value'];
 
-            $setup[$option] = $value;
-        }
+        //     $setup[$option] = $value;
+        // }
 
         return $setup;
     }
@@ -66,6 +67,7 @@ class Mailer
 
 
         //Server settings
+        $this->settings = $this->smtp_setup($setup);
 
 
         $this->mail->isSMTP(); //Send using SMTP
