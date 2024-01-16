@@ -1,6 +1,6 @@
 <?php
 
-namespace Zubair\TestProject;
+namespace thedavidinyang\SimpleMail;
 
 use PHPUnit\Framework\TestCase;
 
