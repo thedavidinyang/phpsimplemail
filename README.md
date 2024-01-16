@@ -31,3 +31,33 @@ It provides all the basic pieces need to craft almost any kind of email.
 - password = smtp password
 - authentication = SSL or TLS
 - port = smtp port
+
+## Easy Installation
+
+### Install with composer
+
+To install with [Composer](https://getcomposer.org/), simply require the
+latest version of this package.
+
+```bash
+composer require thedavidinyang/phpsimplemail
+```
+
+Make sure that the autoload file from Composer is loaded.
+
+```php
+// somewhere early in your project's loading, require the Composer autoloader
+// see: http://getcomposer.org/doc/00-intro.md
+require 'vendor/autoload.php';
+
+```
+
+
+### Download and install
+
+Download a packaged archive and extract it into the directory where the package will reside
+
+ * You can download stable copies of dompdf from
+   https://github.com/thedavidinyang/phpsimplemail/releases
+
+
