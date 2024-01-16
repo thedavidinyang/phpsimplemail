@@ -1,4 +1,4 @@
-# SimpleMail 
+# SimpleMail ======
 ## A full-featured simple php fluent interface for sending html or plaintext emails via smtp
 
 
