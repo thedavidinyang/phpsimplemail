@@ -75,11 +75,20 @@ $setup = ['host' => '', 'username'=>'', 'password'=>'', 'authentication'=>'', 'p
 // initialize and use the SimpleMail class
 $e = new Mailer;
 
-$e->init($setup)->subject('Welcome')
+$e->init($setup)
 
 // Set mail parameters
+
+// Subject
+->subject('Welcome')
+
+// Recipient
 ->to(['name' => 'David Inyang', 'email'=>'samplemail@gmail.com'])
+
+// Sender
 ->from(['name' => 'David Inyang', 'email'=>'samplemail@gmail.com'])
+
+// Content
 ->body('Hi, welcome to the team')
 
 // Send mail
