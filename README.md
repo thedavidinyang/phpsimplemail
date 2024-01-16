@@ -8,7 +8,7 @@ PHP SimpleMail
 <?php
 $e = new Mailer;
 
- $setup = ['host' => '', 'username'=>'', 'password'=>'', 'authentication'=>'', 'port'=>''  ]
+$setup = ['host' => '', 'username'=>'', 'password'=>'', 'authentication'=>'', 'port'=>''  ]
 
 $e->init($setup)->subject('Welcome')
 ->to(['name' => 'David Inyang', 'email'=>'davidinyang01@gmail.com'])
@@ -61,3 +61,28 @@ Download a packaged archive and extract it into the directory where the package 
    https://github.com/thedavidinyang/phpsimplemail/releases
 
 
+## Quick Start
+
+Just pass your email configuration into PHPSimplemail:
+
+```php
+// reference the SimpleMail namespace
+use thedavidinyang\SimpleMail\Mailer;
+
+// Setup SMTP Configurations
+$setup = ['host' => '', 'username'=>'', 'password'=>'', 'authentication'=>'', 'port'=>''  ]
+
+// initialize and use the SimpleMail class
+$e = new Mailer;
+
+$e->init($setup)->subject('Welcome')
+
+// Set mail parameters
+->to(['name' => 'David Inyang', 'email'=>'davidinyang01@gmail.com'])
+->from(['name' => 'David Inyang', 'email'=>'davidinyang01@gmail.com'])
+->body('Hi, welcome to the team')
+
+// Send mail
+->sendmail()
+
+```
