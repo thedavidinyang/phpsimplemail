@@ -11,7 +11,19 @@
       "role": "Developer"
     }
   ],
-  "keywords": [ "php", "php email", "simple email", "smtp", "php smtp", "mail", "php email", "phpsimplemail", "simple email", "simple mail", "phpmailer" ],
+  "keywords": [
+    "php",
+    "php email",
+    "simple email",
+    "smtp",
+    "php smtp",
+    "mail",
+    "php email",
+    "phpsimplemail",
+    "simple email",
+    "simple mail",
+    "phpmailer"
+  ],
   "autoload": {
     "psr-4": {
       "thedavidinyang\\SimpleMail\\": "src/"
@@ -25,5 +37,8 @@
     "ext-filter": "*",
     "ext-hash": "*",
     "phpmailer/phpmailer": "^6.9"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.6"
   }
 }
