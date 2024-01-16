@@ -23,7 +23,7 @@ You can send plaintext or html email, and also include attatchements easily from
 
 It provides all the basic pieces need to craft almost any kind of email.
 
-## Coniguration
+## Configuration
 
 - host = smtp host url
 - username = smtp username
