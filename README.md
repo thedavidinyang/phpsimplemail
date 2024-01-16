@@ -18,7 +18,7 @@ $e->init($setup)->subject('Welcome')
 ```
 
 
-This is a simple mail interface that makes sending smtp emails extremely easy usisng PHPMailer in the background.
+This is a simple mail interface that makes sending smtp emails extremely easy.
 
 You can send plaintext or html email, and also include attatchements easily from a fluent interface.
 
