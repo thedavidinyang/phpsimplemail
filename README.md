@@ -11,8 +11,8 @@ $e = new Mailer;
 $setup = ['host' => '', 'username'=>'', 'password'=>'', 'authentication'=>'', 'port'=>''  ]
 
 $e->init($setup)->subject('Welcome')
-->to(['name' => 'David Inyang', 'email'=>'davidinyang01@gmail.com'])
-->from(['name' => 'David Inyang', 'email'=>'davidinyang01@gmail.com'])
+->to(['name' => 'David Inyang', 'email'=>'samplemail@gmail.com'])
+->from(['name' => 'David Inyang', 'email'=>'samplemail@gmail.com'])
 ->body('Hi, welcome to the team')
 ->sendmail()
 ```
@@ -78,8 +78,8 @@ $e = new Mailer;
 $e->init($setup)->subject('Welcome')
 
 // Set mail parameters
-->to(['name' => 'David Inyang', 'email'=>'davidinyang01@gmail.com'])
-->from(['name' => 'David Inyang', 'email'=>'davidinyang01@gmail.com'])
+->to(['name' => 'David Inyang', 'email'=>'samplemail@gmail.com'])
+->from(['name' => 'David Inyang', 'email'=>'samplemail@gmail.com'])
 ->body('Hi, welcome to the team')
 
 // Send mail
