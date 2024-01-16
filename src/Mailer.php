@@ -298,7 +298,7 @@ class Mailer
             $this->mail->send();
 
             if ($response){
-                return ('Message has been sent');
+                return true;
             }
         } catch (Exception $e) {
 
