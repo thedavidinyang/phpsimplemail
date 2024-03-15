@@ -15,8 +15,10 @@ use PHPMailer\PHPMailer\SMTP;
 
 class Mailer 
 {
-    public $mail;
-    private $settings;
+    public static  $mail;
+    private static  $settings;
+
+    private static $setup;
 
     const VERSION = '1.0';
 
@@ -24,14 +26,15 @@ class Mailer
     public function __construct()
     {
 
-        $this->mail = new PHPMailer(true);
+        // $this->mail = new PHPMailer(true);
+        static::$mail = new PHPMailer(true);
 
     }
 
-    private function smtp_setup(array $v) :array
+    private static function smtp_setup(array $v) 
     {
         // $setup = [];
-        $setup = $v;
+       static::$setup = $v;
 
         /*
 
@@ -57,31 +60,31 @@ class Mailer
         //     $setup[$option] = $value;
         // }
 
-        return $setup;
+        return new static;
     }
 
     // intialize the mail setup
 
-    public function init($setup)
+    public static function init($setup)
     {
 
 
         //Server settings
-        $this->settings = $this->smtp_setup($setup);
+        static::$settings = static::$smtp_setup($setup);
 
 
-        $this->mail->isSMTP(); //Send using SMTP
-        $this->mail->Host = $this->settings['host']; //Set the SMTP server to send through
-        $this->mail->SMTPAuth = true; //Enable SMTP authentication
-        $this->mail->Username = $this->settings['username']; 
-        $this->mail->Password = $this->settings['password']; 
-        $this->mail->SMTPSecure = $this->settings['authentication'];
+        static::$mail->isSMTP(); //Send using SMTP
+        static::$mail->Host = static::$settings['host']; //Set the SMTP server to send through
+        static::$mail->SMTPAuth = true; //Enable SMTP authentication
+        static::$mail->Username = static::$settings['username']; 
+        static::$mail->Password = static::$settings['password']; 
+        static::$mail->SMTPSecure = static::$settings['authentication'];
         // $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; //Enable implicit TLS encryption
-        $this->mail->Port = $this->settings['port']; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+    static::$mail->Port = static::$settings['port']; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
       
 
-        return $this;
+        return new static;
 
     }
 
@@ -94,54 +97,54 @@ class Mailer
 
     */
     
-    public function format(bool $v){
+    public static function format(bool $v){
 
         if($v){
 
-            $this->mail->isHTML(true); //Set email format to HTML
+            static::$mail->isHTML(true); //Set email format to HTML
 
         } else {
-            $this->mail->isHTML(true); //Set email format to HTML
+            static::$mail->isHTML(true); //Set email format to HTML
 
 
         }
 
-        return $this;
+        return new static;
 
     }
 
     // enable or diable debuging 
 
-    public function debug(bool $v){
+    public static function debug(bool $v){
 
         if($v){
             //Enable verbose debug output
-        $this->mail->SMTPDebug = SMTP::DEBUG_SERVER; 
+            static::$mail->SMTPDebug = SMTP::DEBUG_SERVER; 
 
         } else{
             //Disable verbose debug output
-            $this->mail->SMTPDebug = SMTP::DEBUG_OFF ;  //Enable verbose debug output
+            static::$mail->SMTPDebug = SMTP::DEBUG_OFF ;  //Enable verbose debug output
 
         }
 
-        return $this;
+        return new static;
 
 
     }
 
     /// add attatchment
 
-    public function addAttachment(string $file)
+    public static function addAttachment(string $file)
     {
-        $this->mail->addAttachment($file);
+        static::$mail->addAttachment($file);
 
-        return $this;
+        return new static;
 
     }
 
 
     /// set sender
-    public function from(array $v)
+    public static function from(array $v)
     {
 
         // $v = [
@@ -149,15 +152,15 @@ class Mailer
         //     'name'  => 'David Inyang'
         // ];
 
-        $this->mail->setFrom($v['email'], $v['name']);
+        static::$mail->setFrom($v['email'], $v['name']);
 
-        return $this;
+        return new static;
     }
 
 
 
     /// set recipient
-    public function to(array $v)
+    public static function to(array $v)
     {
 
         // //Recipients
@@ -167,15 +170,15 @@ class Mailer
         //     'name'  => 'David Inyang'
         // ];
 
-        $this->mail->addAddress($v['email'], $v['name']);
+        static::$mail->addAddress($v['email'], $v['name']);
 
-        return $this;
+        return new static;
 
     }
 
 
     /// set many recipient
-    public function to_many(array $v)
+    public static function to_many(array $v)
     {
 
       
@@ -187,17 +190,17 @@ class Mailer
 
         foreach ($v as $e){
 
-            $this->mail->addAddress($v['email']);
+            static::$mail->addAddress($v['email']);
 
         }
 
-        return $this;
+        return new static;
 
     }
 
 
     /// set recipient
-    public function reply_to(array $v)
+    public static function reply_to(array $v)
     {
 
         // $v = [
@@ -205,15 +208,15 @@ class Mailer
         //     'name'  => 'David Inyang'
         // ];
 
-        $this->mail->addReplyTo($v['email'], $v['name']);
+        static::$mail->addReplyTo($v['email'], $v['name']);
 
-        return $this;
+        return new static;
 
     }
 
     // add bcc
 
-    public function bcc(array $v){
+    public static function bcc(array $v){
 
           // $v = [
         //     'email' => 'davidinyang01@gmail.com',
@@ -222,18 +225,18 @@ class Mailer
 
         foreach ($v as $e){
 
-            $this->mail->addBCC($v['email']);
+            static::$mail->addBCC($v['email']);
 
         }
 
-        return $this;
+        return new static;
 
     }
 
 
     // add cc
 
-    public function cc(array $v){
+    public static function cc(array $v){
 
           // $v = [
         //     'email' => 'davidinyang01@gmail.com',
@@ -242,60 +245,60 @@ class Mailer
 
         foreach ($v as $e){
 
-            $this->mail->addCC($v['email']);
+            static::$mail->addCC($v['email']);
 
         }
 
-        return $this;
+        return new static;
 
     }
 
 
     // set subject
-    public function subject(string $v)
+    public static function subject(string $v)
     {
 
-        $this->mail->Subject = $v;
+        static::$mail->Subject = $v;
 
-        return $this;
+        return new static;
 
     }
 
 
 // set   mail content
-    public function body(string $v)
+    public static function body(string $v)
     {
 
         //Content
-        $this->mail->Body = $v;
+        static::$mail->Body = $v;
 
 
-        return $this;
+        return new static;
 
     }
 
 
     //set alternate content This is the body in plain text for non-HTML mail clients
 
-    public function alt_body(string $v){
+    public static function alt_body(string $v){
 
          //Content
-         $this->mail->AltBody = $v;
+         static::$mail->AltBody = $v;
 
-        return $this;
+        return new static;
 
     }
 
 
     /// send email
 
-    public function sendmail(bool $response = false)
+    public static function sendmail(bool $response = false)
     {
 
 
         try {
 
-            $this->mail->send();
+            static::$mail->send();
 
             if ($response){
                 return true;
@@ -303,7 +306,7 @@ class Mailer
         } catch (Exception $e) {
 
             if ($response){
-                return ("Message could not be sent. Mailer Error: {$this->mail->ErrorInfo}");
+                return ("Message could not be sent. Mailer Error: ".static::$mail->ErrorInfo);
             }
         }
     }
