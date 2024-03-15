@@ -70,7 +70,7 @@ class Mailer
 
 
         //Server settings
-        static::$settings = static::$smtp_setup($setup);
+        static::$settings = static::smtp_setup($setup);
 
 
         static::$mail->isSMTP(); //Send using SMTP
