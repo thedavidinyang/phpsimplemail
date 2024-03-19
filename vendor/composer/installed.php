@@ -3,7 +3,7 @@
         'name' => 'thedavidinyang/phpsimplemail',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '22b2ce7ea5ddd1ea000030146bc4dffdf76f8c47',
+        'reference' => '26d2c360937fa73be8563a1de9ad963851005dfb',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -265,7 +265,7 @@
         'thedavidinyang/phpsimplemail' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '22b2ce7ea5ddd1ea000030146bc4dffdf76f8c47',
+            'reference' => '26d2c360937fa73be8563a1de9ad963851005dfb',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
