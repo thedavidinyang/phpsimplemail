@@ -20,7 +20,7 @@ class Mailer
 
     private static $setup;
 
-    const VERSION = '1.0';
+    const VERSION = '1.0.4';
 
 
     public function __construct()
