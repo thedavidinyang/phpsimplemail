@@ -10,11 +10,12 @@ $e = new Mailer;
 
 $setup = ['host' => '', 'username'=>'', 'password'=>'', 'authentication'=>'', 'port'=>''  ]
 
-$e->init($setup)->subject('Welcome')
+$e->init($setup)
+->subject('Welcome')
 ->to(['name' => 'David Inyang', 'email'=>'samplemail@gmail.com'])
 ->from(['name' => 'David Inyang', 'email'=>'samplemail@gmail.com'])
 ->body('Hi, welcome to the team')
-->sendmail()
+->sendmail();
 ```
 
 
@@ -92,6 +93,6 @@ $e->init($setup)
 ->body('Hi, welcome to the team')
 
 // Send mail
-->sendmail()
+->sendmail();
 
 ```
