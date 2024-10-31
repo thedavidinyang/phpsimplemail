@@ -84,6 +84,8 @@ class Mailer
 
         $this->mail->SendGridApiKey = $apiKey;
 
+        return $this;
+
     }
 
     // intialize the mail setup
