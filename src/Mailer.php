@@ -43,12 +43,9 @@ class Mailer
 
     }
 
-    private function sendGrid($setup){
+    private function sendGrid($setup)
+    {
 
-        $this->mail->isSendGrid();
-        //SendGrid API Key
-
-        $this->mail->SendGridApiKey = $setup['api_key']; 
     }
 
     private function smtp_setup(array $v): array
@@ -87,21 +84,30 @@ class Mailer
 
         //Server settings
 
-        if($this->type == 'smtp') {
-        $this->settings = $this->smtp_setup($setup);
+        if ($this->type == 'smtp') {
+            $this->settings = $this->smtp_setup($setup);
 
-        $this->mail->isSMTP(); //Send using SMTP
-        $this->mail->Host = $this->settings['host']; //Set the SMTP server to send through
-        $this->mail->SMTPAuth = true; //Enable SMTP authentication
-        $this->mail->Username = $this->settings['username'];
-        $this->mail->Password = $this->settings['password'];
-        $this->mail->SMTPSecure = $this->settings['authentication'];
-        // $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; //Enable implicit TLS encryption
-        $this->mail->Port = $this->settings['port']; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+            $this->mail->isSMTP(); //Send using SMTP
+            $this->mail->Host = $this->settings['host']; //Set the SMTP server to send through
+            $this->mail->SMTPAuth = true; //Enable SMTP authentication
+            $this->mail->Username = $this->settings['username'];
+            $this->mail->Password = $this->settings['password'];
+            $this->mail->SMTPSecure = $this->settings['authentication'];
+            // $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; //Enable implicit TLS encryption
+            $this->mail->Port = $this->settings['port']; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
-        return $this;
         }
 
+        if ($this->type == 'sendgrid') {
+
+            $this->mail->isSendGrid();
+            //SendGrid API Key
+
+            $this->mail->SendGridApiKey = $setup['apiKey'];
+
+        }
+
+        return $this;
     }
 
     /*
