@@ -43,15 +43,11 @@ class Mailer
 
     }
 
-    private function sendGrid($setup)
+
+    private function smtp_setup(array $v)
     {
 
-    }
-
-    private function smtp_setup(array $v): array
-    {
-        // $setup = [];
-        $setup = $v;
+        $this->settings = $v;
 
         /*
 
@@ -67,27 +63,9 @@ class Mailer
 
          */
 
-        // foreach ($v as $row) {
-        //     $option = $row['option'];
-        //     $value = $row['value'];
+       
 
-        //     $setup[$option] = $value;
-        // }
-
-        return $setup;
-    }
-
-    // intialize the mail setup
-
-    public function init($setup)
-    {
-
-        //Server settings
-
-        if ($this->type == 'smtp') {
-            $this->settings = $this->smtp_setup($setup);
-
-            $this->mail->isSMTP(); //Send using SMTP
+        $this->mail->isSMTP(); //Send using SMTP
             $this->mail->Host = $this->settings['host']; //Set the SMTP server to send through
             $this->mail->SMTPAuth = true; //Enable SMTP authentication
             $this->mail->Username = $this->settings['username'];
@@ -96,14 +74,32 @@ class Mailer
             // $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; //Enable implicit TLS encryption
             $this->mail->Port = $this->settings['port']; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
+        return $this;
+    }
+
+
+    private function sendGridSetup(String $apiKey){
+
+        $this->mail->isSendGrid();
+
+        $this->mail->SendGridApiKey = $apiKey;
+
+    }
+
+    // intialize the mail setup
+
+    public function init(Array $setup)
+    {
+
+        //Server settings
+
+        if ($this->type == 'smtp') {
+             $this->smtp_setup($setup);
         }
 
         if ($this->type == 'sendgrid') {
 
-            $this->mail->isSendGrid();
-            //SendGrid API Key
-
-            $this->mail->SendGridApiKey = $setup['apiKey'];
+            $this->sendGridSetup($setup['apiKey']);
 
         }
 
