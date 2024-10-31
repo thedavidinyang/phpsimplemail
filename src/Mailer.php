@@ -19,14 +19,18 @@ class Mailer
     public $mail;
     private $settings;
 
+    private $type;
+
     const VERSION = '1.5';
 
     public function __construct($type)
     {
 
+        $this->type = $type;
+
         switch ($type) {
 
-            case 'SMTP':
+            case 'smtp':
                 $this->mail = new PHPMailer(true);
 
                 break;
@@ -37,6 +41,14 @@ class Mailer
                 break;
         }
 
+    }
+
+    private function sendGrid($setup){
+
+        $this->mail->isSendGrid();
+        //SendGrid API Key
+
+        $this->mail->SendGridApiKey = $setup['api_key']; 
     }
 
     private function smtp_setup(array $v): array
@@ -74,6 +86,8 @@ class Mailer
     {
 
         //Server settings
+
+        if($this->type == 'smtp') {
         $this->settings = $this->smtp_setup($setup);
 
         $this->mail->isSMTP(); //Send using SMTP
@@ -86,6 +100,7 @@ class Mailer
         $this->mail->Port = $this->settings['port']; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
         return $this;
+        }
 
     }
 
