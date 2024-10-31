@@ -73,7 +73,7 @@ class Mailer
 
     // intialize the mail setup
 
-    public function init($type)
+    public function init(String $type)
     {
 
         $this->type = $type;
@@ -90,6 +90,8 @@ class Mailer
 
                 break;
         }
+
+        return $this;
 
     }
 
