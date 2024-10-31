@@ -108,6 +108,7 @@ $e->init('smtp')
 
 ## SendGrid Integration
 
+Just pass your sendgrid API key into PHPSimplemail:
 
 ```php
 // reference the SimpleMail namespace
