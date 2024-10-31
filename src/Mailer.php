@@ -23,25 +23,8 @@ class Mailer
 
     const VERSION = '1.5';
 
-    public function __construct($type)
-    {
-
-        $this->type = $type;
-
-        switch ($type) {
-
-            case 'smtp':
-                $this->mail = new PHPMailer(true);
-
-                break;
-            case 'sendgrid':
-
-                $this->mail = new PHPMailerSendGrid(true);
-
-                break;
-        }
-
-    }
+   
+    
 
 
     private function smtp_setup(array $v)
@@ -90,7 +73,28 @@ class Mailer
 
     // intialize the mail setup
 
-    public function init(Array $setup)
+    public function init($type)
+    {
+
+        $this->type = $type;
+
+        switch ($type) {
+
+            case 'smtp':
+                $this->mail = new PHPMailer(true);
+
+                break;
+            case 'sendgrid':
+
+                $this->mail = new PHPMailerSendGrid(true);
+
+                break;
+        }
+
+    }
+
+
+    public function setup(Array $setup)
     {
 
         //Server settings
@@ -116,7 +120,7 @@ class Mailer
 
      */
 
-    public function format(bool $v)
+    public function html(bool $v)
     {
 
         if ($v) {

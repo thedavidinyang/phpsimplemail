@@ -1,6 +1,6 @@
 PHP SimpleMail 
 ======
-## A full-featured simple php fluent interface for sending html or plaintext emails via smtp
+## A full-featured simple php fluent interface for sending html or plaintext emails via smtp or sendgrid
 
 
 
@@ -10,7 +10,8 @@ $e = new Mailer;
 
 $setup = ['host' => '', 'username'=>'', 'password'=>'', 'authentication'=>'', 'port'=>''  ];
 
-$e->init($setup)
+$e->init('smtp')
+->setup($setup)
 ->subject('Welcome')
 ->to(['name' => 'David Inyang', 'email'=>'samplemail@gmail.com'])
 ->from(['name' => 'David Inyang', 'email'=>'samplemail@gmail.com'])
@@ -25,13 +26,17 @@ You can send plaintext or html email, and also include attatchements easily from
 
 It provides all the basic pieces need to craft almost any kind of email.
 
-## Configuration
+## SMTP Configuration
 
 - host = smtp host url
 - username = smtp username
 - password = smtp password
 - authentication = SSL or TLS
 - port = smtp port
+  
+## Sendgrid Configuration
+
+- apiKey = your sendgrid api key
 
 ## Easy Installation
 
@@ -76,7 +81,8 @@ $setup = ['host' => '', 'username'=>'', 'password'=>'', 'authentication'=>'', 'p
 // initialize and use the SimpleMail class
 $e = new Mailer;
 
-$e->init($setup)
+$e->init('smtp')
+->setup($setup)
 
 // Set mail parameters
 
@@ -91,6 +97,46 @@ $e->init($setup)
 
 // Content
 ->body('Hi, welcome to the team')
+
+
+
+// Send mail
+->sendmail();
+
+```
+
+
+## SendGrid Integration
+
+
+```php
+// reference the SimpleMail namespace
+use thedavidinyang\SimpleMail\Mailer;
+
+// Setup SMTP Configurations
+$setup = ['apiKey' => '' ]
+
+// initialize and use the SimpleMail class
+$e = new Mailer;
+
+$e->init('sendgrid')
+->setup($setup)
+
+// Set mail parameters
+
+// Subject
+->subject('Welcome')
+
+// Recipient
+->to(['name' => 'David Inyang', 'email'=>'samplemail@gmail.com'])
+
+// Sender
+->from(['name' => 'David Inyang', 'email'=>'samplemail@gmail.com'])
+
+// Content
+->body('Hi, welcome to the team')
+
+
 
 // Send mail
 ->sendmail();
