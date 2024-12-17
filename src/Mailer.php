@@ -21,7 +21,7 @@ class Mailer
 
     private $type;
 
-    const VERSION = '1.5';
+    const VERSION = '2';
 
    
     

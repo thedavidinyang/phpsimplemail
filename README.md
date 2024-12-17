@@ -76,7 +76,7 @@ Just pass your email configuration into PHPSimplemail:
 use thedavidinyang\SimpleMail\Mailer;
 
 // Setup SMTP Configurations
-$setup = ['host' => '', 'username'=>'', 'password'=>'', 'authentication'=>'', 'port'=>''  ]
+$setup = ['host' => '', 'username'=>'', 'password'=>'', 'authentication'=>'', 'port'=>''  ];
 
 // initialize and use the SimpleMail class
 $e = new Mailer;
@@ -115,7 +115,7 @@ Just pass your sendgrid API key into PHPSimplemail:
 use thedavidinyang\SimpleMail\Mailer;
 
 // Setup SMTP Configurations
-$setup = ['apiKey' => '' ]
+$setup = ['apiKey' => '' ];
 
 // initialize and use the SimpleMail class
 $e = new Mailer;
