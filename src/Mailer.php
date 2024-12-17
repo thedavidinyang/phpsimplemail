@@ -11,27 +11,26 @@ namespace thedavidinyang\SimpleMail;
 
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\PHPMailerSendGrid;
 use PHPMailer\PHPMailer\SMTP;
 
-class Mailer 
+class Mailer
 {
     public $mail;
     private $settings;
 
-    const VERSION = '2';
+    private $type;
+
+    const VERSION = '1.5';
+
+   
+    
 
 
-    public function __construct()
+    private function smtp_setup(array $v)
     {
 
-        $this->mail = new PHPMailer(true);
-
-    }
-
-    private function smtp_setup(array $v) :array
-    {
-        // $setup = [];
-        $setup = $v;
+        $this->settings = $v;
 
         /*
 
@@ -45,87 +44,116 @@ class Mailer
         authentication = SSL or TLS
         port = smtp port
 
+         */
+
+       
+
+        $this->mail->isSMTP(); //Send using SMTP
+            $this->mail->Host = $this->settings['host']; //Set the SMTP server to send through
+            $this->mail->SMTPAuth = true; //Enable SMTP authentication
+            $this->mail->Username = $this->settings['username'];
+            $this->mail->Password = $this->settings['password'];
+            $this->mail->SMTPSecure = $this->settings['authentication'];
+            // $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; //Enable implicit TLS encryption
+            $this->mail->Port = $this->settings['port']; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+        return $this;
+    }
 
 
+    private function sendGridSetup(String $apiKey){
 
-        */
+        $this->mail->isSendGrid();
 
-        // foreach ($v as $row) {
-        //     $option = $row['option'];
-        //     $value = $row['value'];
+        $this->mail->SendGridApiKey = $apiKey;
 
-        //     $setup[$option] = $value;
-        // }
+        return $this;
 
-        return $setup;
     }
 
     // intialize the mail setup
 
-    public function init($setup)
+    public function init(String $type)
     {
 
+        $this->type = $type;
 
-        //Server settings
-        $this->settings = $this->smtp_setup($setup);
+        switch ($type) {
 
+            case 'smtp':
+                $this->mail = new PHPMailer(true);
 
-        $this->mail->isSMTP(); //Send using SMTP
-        $this->mail->Host = $this->settings['host']; //Set the SMTP server to send through
-        $this->mail->SMTPAuth = true; //Enable SMTP authentication
-        $this->mail->Username = $this->settings['username']; 
-        $this->mail->Password = $this->settings['password']; 
-        $this->mail->SMTPSecure = $this->settings['authentication'];
-        // $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; //Enable implicit TLS encryption
-        $this->mail->Port = $this->settings['port']; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+                break;
+            case 'sendgrid':
 
-      
+                $this->mail = new PHPMailerSendGrid(true);
+
+                break;
+        }
 
         return $this;
 
     }
 
 
-    /* 
-    set mail format to 
-    
+    public function setup(Array $setup)
+    {
+
+        //Server settings
+
+        if ($this->type == 'smtp') {
+             $this->smtp_setup($setup);
+        }
+
+        if ($this->type == 'sendgrid') {
+
+            $this->sendGridSetup($setup['apiKey']);
+
+        }
+
+        return $this;
+    }
+
+    /*
+    set mail format to
+
     true = html
     false = plain
 
-    */
-    
-    public function format(bool $v){
+     */
 
-        if($v){
+    public function html(bool $v)
+    {
+
+        if ($v) {
 
             $this->mail->isHTML(true); //Set email format to HTML
 
         } else {
             $this->mail->isHTML(false); //Set email format to HTML
 
-
         }
 
         return $this;
 
     }
 
-    // enable or diable debuging 
+    // enable or diable debuging
 
-    public function debug(bool $v){
+    public function debug(bool $v)
+    {
 
-        if($v){
+        if ($v) {
             //Enable verbose debug output
-        $this->mail->SMTPDebug = SMTP::DEBUG_SERVER; 
+            $this->mail->SMTPDebug = SMTP::DEBUG_SERVER;
 
-        } else{
+        } else {
             //Disable verbose debug output
-            $this->mail->SMTPDebug = SMTP::DEBUG_OFF ;  //Enable verbose debug output
+            $this->mail->SMTPDebug = SMTP::DEBUG_OFF; //Enable verbose debug output
 
         }
 
         return $this;
-
 
     }
 
@@ -138,7 +166,6 @@ class Mailer
         return $this;
 
     }
-
 
     /// set sender
     public function from(array $v)
@@ -153,8 +180,6 @@ class Mailer
 
         return $this;
     }
-
-
 
     /// set recipient
     public function to(array $v)
@@ -173,19 +198,16 @@ class Mailer
 
     }
 
-
     /// set many recipient
     public function to_many(array $v)
     {
-
-      
 
         // $v = [
         //     'email' => 'davidinyang01@gmail.com',
         //     'email'  => 'davidinyang01@gmail.com'
         // ];
 
-        foreach ($v as $e){
+        foreach ($v as $e) {
 
             $this->mail->addAddress($v['email']);
 
@@ -194,7 +216,6 @@ class Mailer
         return $this;
 
     }
-
 
     /// set recipient
     public function reply_to(array $v)
@@ -213,14 +234,15 @@ class Mailer
 
     // add bcc
 
-    public function bcc(array $v){
+    public function bcc(array $v)
+    {
 
-          // $v = [
+        // $v = [
         //     'email' => 'davidinyang01@gmail.com',
         //     'email'  => 'davidinyang01@gmail.com'
         // ];
 
-        foreach ($v as $e){
+        foreach ($v as $e) {
 
             $this->mail->addBCC($v['email']);
 
@@ -230,17 +252,17 @@ class Mailer
 
     }
 
-
     // add cc
 
-    public function cc(array $v){
+    public function cc(array $v)
+    {
 
-          // $v = [
+        // $v = [
         //     'email' => 'davidinyang01@gmail.com',
         //     'email'  => 'davidinyang01@gmail.com'
         // ];
 
-        foreach ($v as $e){
+        foreach ($v as $e) {
 
             $this->mail->addCC($v['email']);
 
@@ -249,7 +271,6 @@ class Mailer
         return $this;
 
     }
-
 
     // set subject
     public function subject(string $v)
@@ -261,7 +282,6 @@ class Mailer
 
     }
 
-
 // set   mail content
     public function body(string $v)
     {
@@ -269,40 +289,37 @@ class Mailer
         //Content
         $this->mail->Body = $v;
 
-
         return $this;
 
     }
-
 
     //set alternate content This is the body in plain text for non-HTML mail clients
 
-    public function alt_body(string $v){
+    public function alt_body(string $v)
+    {
 
-         //Content
-         $this->mail->AltBody = $v;
+        //Content
+        $this->mail->AltBody = $v;
 
         return $this;
 
     }
-
 
     /// send email
 
     public function sendmail(bool $response = false)
     {
 
-
         try {
 
             $this->mail->send();
 
-            if ($response){
+            if ($response) {
                 return true;
             }
         } catch (Exception $e) {
 
-            if ($response){
+            if ($response) {
                 return ("Message could not be sent. Mailer Error: {$this->mail->ErrorInfo}");
             }
         }
