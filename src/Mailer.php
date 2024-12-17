@@ -18,7 +18,7 @@ class Mailer
     public $mail;
     private $settings;
 
-    const VERSION = '1.5';
+    const VERSION = '2';
 
 
     public function __construct()

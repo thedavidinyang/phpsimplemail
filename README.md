@@ -8,7 +8,7 @@ PHP SimpleMail
 <?php
 $e = new Mailer;
 
-$setup = ['host' => '', 'username'=>'', 'password'=>'', 'authentication'=>'', 'port'=>''  ]
+$setup = ['host' => '', 'username'=>'', 'password'=>'', 'authentication'=>'', 'port'=>''  ];
 
 $e->init($setup)
 ->subject('Welcome')
